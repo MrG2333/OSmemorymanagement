@@ -8,7 +8,8 @@ void main(){
     initialize();
 
     printmemory();
-    printsegmenttable();
+
+	printsegmenttable();
 
     printf("shell> end\n");
 }
