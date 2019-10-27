@@ -47,7 +47,8 @@ void * mymalloc ( size_t size )
     Segment_t * ptrToFree = NULL;
     Segment_t * newSegmentAfterSplit = NULL;
     ptrToFree = findFree( segmenttable,size);
-         if(ptrToFree != NULL)
+         if(ptrToFree != NULL )
+         if(ptrToFree->size > size)
     {
         ///calculate sizes after split
         size_t sizeOfFreeSegment = ptrToFree->size;
@@ -67,6 +68,15 @@ void * mymalloc ( size_t size )
 
         return ptrToFree->start;
     }
+        else if(ptrToFree->size == size)
+        {
+            ptrToFree->allocated=TRUE;
+
+            printf( "mymalloc> end\n");
+
+            return ptrToFree->start;
+        }
+
     printf( "mymalloc> end\n");
     return NULL;
 
@@ -117,7 +127,7 @@ Segment_t * findFree ( Segment_t * list, size_t size )
     printf ( "findFree> start\n");
     while(list!=NULL)
     {
-        if(list->allocated == FALSE && list->size > size)                 ///check if size can be <= or always <
+        if(list->allocated == FALSE && (list->size > size || list->size == size) )               ///check if size can be <= or always <
             {
             printf( "findFree> end\n" );
             return list;

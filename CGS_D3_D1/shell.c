@@ -9,7 +9,7 @@ void main(){
 
     printmemory();
 
-	printsegmenttable();
+    printsegmenttable();
 
     printf("shell> end\n");
 }

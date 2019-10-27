@@ -43,10 +43,12 @@ void initialize ()
 void * mymalloc ( size_t size )
 {
     printf ( "mymalloc> start\n");
+
     Segment_t * ptrToFree = NULL;
     Segment_t * newSegmentAfterSplit = NULL;
     ptrToFree = findFree( segmenttable,size);
-         if(ptrToFree != NULL)
+         if(ptrToFree != NULL )
+         if(ptrToFree->size > size)
     {
         ///calculate sizes after split
         size_t sizeOfFreeSegment = ptrToFree->size;
@@ -62,20 +64,33 @@ void * mymalloc ( size_t size )
         ptrToFree->size = size;
 
         insertAfter(ptrToFree,newSegmentAfterSplit);
+        printf( "mymalloc> end\n");
 
         return ptrToFree->start;
     }
+        else if(ptrToFree->size == size)
+        {
+            ptrToFree->allocated=TRUE;
+
+            printf( "mymalloc> end\n");
+
+            return ptrToFree->start;
+        }
+
     printf( "mymalloc> end\n");
     return NULL;
 
 
 }
 
+///at first defrag looks for a free segment then for a data segmnet
+/// it moves the data
 
 void mydefrag ( void ** ptrlist)
 {
    printf ( "mydefrag> start\n");
-
+   
+   printf( "mydefrag> end\n");
 }
 
 
@@ -85,8 +100,9 @@ Segment_t * findFree ( Segment_t * list, size_t size )
     printf ( "findFree> start\n");
     while(list!=NULL)
     {
-        if(list->allocated == FALSE && list->size > size)                 ///check if size can be <= or always <
+        if(list->allocated == FALSE && (list->size > size || list->size == size) )               ///check if size can be <= or always <
             {
+            printf( "findFree> end\n" );
             return list;
             }
         list=list->next;
@@ -108,8 +124,6 @@ Segment_t * findSegment ( Segment_t * list, void * ptr )
 
     while(list != NULL)
     {
-    printf("\nlist->start = %p     ptr = %p\n",list->start,ptr);
-       printf("\nsegmentable->start in findFree after list found: %p\n",segmenttable->start);
          if(list->start == ptr)
         {
             return list;

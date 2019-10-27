@@ -25,7 +25,7 @@ void initialize ()
     // create segment table
     // contains one segment description that declares the whole memory
     // as one free segment
-    segmenttable = (Segment_t *)(mymemory);
+    segmenttable = (Segment_t *) malloc(sizeof(Segment_t)) ;
     segmenttable->allocated = FALSE;
     segmenttable->size = MAXMEM;
     segmenttable->start = mymemory;
@@ -43,46 +43,54 @@ void initialize ()
 void * mymalloc ( size_t size )
 {
     printf ( "mymalloc> start\n");
+
     Segment_t * ptrToFree = NULL;
     Segment_t * newSegmentAfterSplit = NULL;
-
     ptrToFree = findFree( segmenttable,size);
-
-    if(ptrToFree != NULL)
+         if(ptrToFree != NULL )
+         if(ptrToFree->size > size)
     {
         ///calculate sizes after split
         size_t sizeOfFreeSegment = ptrToFree->size;
         size_t sizeOfSegmentAfterSplit = sizeOfFreeSegment - size;
 
-        newSegmentAfterSplit = (Segment_t * )(ptrToFree->start + sizeof(Segment_t) + sizeof(Byte)*size); ///maybe add +1
+        newSegmentAfterSplit = (Segment_t * )malloc(sizeof(Segment_t));
 
         newSegmentAfterSplit->allocated=FALSE;
         newSegmentAfterSplit->next=NULL;
         newSegmentAfterSplit->size=sizeOfSegmentAfterSplit;
-        newSegmentAfterSplit->start = ptrToFree->start + sizeof(Segment_t)+sizeof(Byte)*size;             ///Is this right???
-                                                                                        ///why does printsegmentable print the wrong thing???
-
+        newSegmentAfterSplit->start = ptrToFree->start +sizeof(Byte)*size;           ///place it after the allocated memory
         ptrToFree->allocated=TRUE;
         ptrToFree->size = size;
+
         insertAfter(ptrToFree,newSegmentAfterSplit);
-        return ptrToFree;
+        printf( "mymalloc> end\n");
+
+        return ptrToFree->start;
     }
+        else if(ptrToFree->size == size)
+        {
+            ptrToFree->allocated=TRUE;
+
+            printf( "mymalloc> end\n");
+
+            return ptrToFree->start;
+        }
+
     printf( "mymalloc> end\n");
     return NULL;
 
 
 }
 
-void myfree ( void * ptr )
-{
-   printf ( "myfree> start\n");
-
-}
+///at first defrag looks for a free segment then for a data segmnet
+/// it moves the data
 
 void mydefrag ( void ** ptrlist)
 {
    printf ( "mydefrag> start\n");
-
+   
+   printf( "mydefrag> end\n");
 }
 
 
@@ -92,10 +100,14 @@ Segment_t * findFree ( Segment_t * list, size_t size )
     printf ( "findFree> start\n");
     while(list!=NULL)
     {
-        if(list->allocated == FALSE && list->size > size)                 ///check if size can be <= or always <
+        if(list->allocated == FALSE && (list->size > size || list->size == size) )               ///check if size can be <= or always <
+            {
+            printf( "findFree> end\n" );
             return list;
+            }
         list=list->next;
     }
+
     printf( "findFree> end\n" );
     return NULL;
 }
@@ -110,7 +122,14 @@ void insertAfter ( Segment_t * oldSegment, Segment_t * newSegment )
 Segment_t * findSegment ( Segment_t * list, void * ptr )
 {
 
+}
 
+void myfree ( void * ptr )
+{
+   printf ( "myfree> start\n");
+
+
+   printf("myfree> end\n");
 }
 
 int isPrintable ( int c )
@@ -122,12 +141,6 @@ int isPrintable ( int c )
 
 void printmemory ()
 {
-    ///we print the memory by printing each byte in a way
-    /// construct the strings print in batches of 10
-
-    ///could have made the strings so that only one pass takes place
-    ///but it does not matter at this time
-    ///TODO: re-write with sprintf
     char aux;
 
     for(int i=0;i< MAXMEM;i=i+10)
@@ -150,6 +163,7 @@ void printmemory ()
                 else
                     printf(".");
         }
+
 
     }
 

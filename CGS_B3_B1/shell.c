@@ -8,7 +8,7 @@ void main(){
     initialize();
 
    char * ptr1 = (char *) mymalloc(10);
-   strcpy(ptr1, "this  test");
+   strcpy(ptr1, "this test");
    printf("shell> content of allocated memory: %s\n", ptr1);
 
    char * ptr2 = (char *) mymalloc(10);

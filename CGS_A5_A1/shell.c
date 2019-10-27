@@ -14,16 +14,16 @@ int main(){
    char * ptr1 = (char *) mymalloc(15);
    strcpy(ptr1, "memory_data_1");
 
-   char * ptr2 = (char *) mymalloc(25);
+   char * ptr2 = (char *) mymalloc(15);
    strcpy(ptr2, "memory_data_2");
 
-   char * ptr3 = (char *) mymalloc(25);
+   char * ptr3 = (char *) mymalloc(15);
    strcpy(ptr3, "memory_data_3");
 
-   char * ptr4 = (char *) mymalloc(25);
+   char * ptr4 = (char *) mymalloc(15);
    strcpy(ptr4, "memory_data_4");
 
-   char * ptr5 = (char *) mymalloc(25);
+   char * ptr5 = (char *) mymalloc(15);
    strcpy(ptr5, "memory_data_5");
 
     printf("\n\nAllocated memory for 5 pointers.\n\n");
@@ -34,15 +34,32 @@ int main(){
     printmemory();
     printsegmenttable();
 
-    printf("\nptr2, ptr3, ptr4, ptr5, will be freed. \nPress any character to continue");
+    printf("\n\nFree ptr2 of size 25, display segmenttable and reallocate the memory to a pointer of the same size to demonstrate the propper functioning of mymalloc.\n Press any key to continue.\n\n");
+    getchar();
+    myfree(ptr2);
+
+    printsegmenttable();
+    printf("\n\n run mymalloc for the same size as the freed pointer.\n Press any key to continue.\n\n");
     getchar();
 
-    myfree(ptr2);
+    char * ptr10 = NULL;
+    ptr10 = (char *)mymalloc(15);
+    strcpy(ptr10,"12345678901234");
+
+    printsegmenttable();
+    printf("\n\n Observe how mymalloc can reuse memory segments of the same size.\n Press any key to continue.\n\n");
+    getchar();
+
+
+
+    printf("\n All pointers with the exception of 2 not adjiacent ones will be freed in order to demonstrate the defragmentation and free space segment compresion. \nPress any character to continue");
+    getchar();
+    myfree(ptr10);
     myfree(ptr3);
-    myfree(ptr4);
+
     myfree(ptr5);
 
-    printf("\n\nFreed all pointers except the first one.\nPress any key to continue\n\n");
+    printf("\n\nFreed all pointers except 2 not adjiacent ones(1st and 4th).\nPress any key to continue\n\n");
     getchar();
     printmemory();
     printsegmenttable();
@@ -56,6 +73,8 @@ int main(){
     getchar();
     printmemory();
     printsegmenttable();
+    printf("\n\n Observe how the data has been moved in the memory.\nPress any key to continue.\n\n");
+    getchar();
 
     ///check if memory is reused after defrag
     printf("\n\n Allocated a pointer in order to demonstrate that the free, defragmented memory is reused. \nPress any key to continue\n\n");
@@ -63,17 +82,9 @@ int main(){
     char * ptr6 = (char *) mymalloc(101);
     strcpy(ptr6, "__REUSED___REUSED_____REUSED___REUSED_____REUSED___REUSED_____REUSED___REUSED_____REUSED___REUSED___");
 
-    printmemory();
-    printsegmenttable();
+    printf("\n\n Allocation done check memory and segmenttable. \nPress any key to continue\n\n");
+    getchar();
 
-    printf("\n\nFree the last allocated pointer, allocate memory for a new pointer, and defragmentate.\n Press any key to conitnue.\n\n");
-    getchar();
-    ptr2 = (char *)mymalloc(15);
-    strcpy(ptr2,"This is new data");
-    myfree(ptr6);
-    mydefrag(segmenttable);
-    printf("\n\nOperations done. Display the memory and segmenttable\nPress any key to continue.\n");
-    getchar();
     printmemory();
     printsegmenttable();
 
