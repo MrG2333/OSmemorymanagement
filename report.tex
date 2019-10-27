@@ -5,26 +5,38 @@
 \usepackage{times}
 \usepackage{natbib}
 \usepackage[margin=25mm]{geometry}
-
+\newcommand\tab[1][1cm]{\hspace*{#1}}
 \title{CS3026 Assesent 1: Memory Management }
-\date{\today}
+\date{October 27, 2019}
 
-\author{George Stoian}
+\author{George Stoian 51768284}
 
 \begin{document}
 \maketitle
 
 \section*{Compilation}
-In order to compile the code, open the terminal and go inside the assesment foldertype:
+In order to compile the code, open the terminal and go inside the assesment folder and type:
 \noindent
 \begin{lstlisting}[language=bash]
 	$ make
 	$ ./memorymake
 \end{lstlisting}
-\section*{D3-D1}
-On the display the user should see the output from printmemory() in the same way presented in the pdf attached to the assement requirements archive. After that the user should see segmentation table displayed in the same way presented in the requirements.
 
-\bibliographystyle{chicago} % or any other style
-\bibliography{mybib}
+
+
+\section*{A1-A5}
+\tab After running the memorymake file the user will be presented with a demonstration of all the funcionalities of the program. Allocating memory with mymalloc freeing it with myfree and defragmenting it with with mydefrag.
+
+\subsection*{mymalloc()}
+\tab If it finds a unallocated segment of the exact same size as the desired one it returns it. Otherwise it continues to look until it finds a unallocated segment bigger than the requested size. It splits the unallocated segment into a segment of the wanted size and segment of free memory.
+\subsection*{myfree()}
+\tab Looks for the pointer to free in the segmenttable linked list. And cheanges the status from allocated to deallocated.
+\subsection*{mydefrag()}
+\tab Looks trough the segmenttable linked list. For each pair of adjiacent segments if the first one is unallocated and the second one is they are swapped. If both are unallocated then they are compressed. This assures that all allocated memory segments are at the begining of the memory while all the free memory is in one segment.
+
+\subsection*{Running the demonstration}
+\tab The user is presented with information about what the program has done or what it is going to do. He can press any key in order to proceed to the next step of the demonstration. getchar() is used in the implementation of the next demonstration step mechanism.
+
+
 
 \end{document}
