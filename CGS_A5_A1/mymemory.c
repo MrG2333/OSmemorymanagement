@@ -19,8 +19,7 @@ void initialize ()
 {
    printf ( "initialize> start\n");
    // set memory to 0
-	for(int i=0;i < MAXMEM;i++) mymemory[i]='\0';
-
+	for(int i=0; i < MAXMEM;i++) mymemory[i]='\0';
 
     // create segment table
     // contains one segment description that declares the whole memory
@@ -65,7 +64,6 @@ void * mymalloc ( size_t size )
 
         insertAfter(ptrToFree,newSegmentAfterSplit);
         printf( "mymalloc> end\n");
-
         return ptrToFree->start;
     }
         else if(ptrToFree->size == size)
@@ -86,19 +84,34 @@ void * mymalloc ( size_t size )
 ///at first defrag looks for a free segment then for a data segmnet
 /// it moves the data
 
-void mydefrag ( void * ptrlist)
+void mydefrag ( void ** ptrlist[])
 {
    printf ( "mydefrag> start\n");
    Segment_t * currentSegment;
     Segment_t * aux;
-   currentSegment = ptrlist;
+   currentSegment = segmenttable;
+    int ptrListCounter = 0;
    while(currentSegment->next != NULL)
    {
         /// move data closer to other data
        if(currentSegment->allocated == FALSE && currentSegment->next->allocated == TRUE){
         currentSegment->size = currentSegment->next->size;
+        ptrListCounter = 0;
+        while(ptrlist[ptrListCounter] != '\0')
+        {   printf("\n\n ptrlist: %s    currentSegment: %s\n\n", *ptrlist[ptrListCounter],currentSegment->next->start);
+            if(*ptrlist[ptrListCounter] == currentSegment->next->start)
+                {
+                    *ptrlist[ptrListCounter] = currentSegment->start;
+                    break;
+                }
+
+            ptrListCounter++;
+        }
+
         ///check how you transfer data from one memory location to the other
-        memcpy(currentSegment->start, currentSegment->next->start,currentSegment->size+1);
+        memcpy(currentSegment->start, currentSegment->next->start,currentSegment->next->size);
+         printf("\n\n ptrlist: %p    currentSegment: %p \n\n", *ptrlist[ptrListCounter-1],currentSegment->start);
+
         currentSegment->allocated = TRUE;
         currentSegment->next->allocated = FALSE;
         currentSegment = currentSegment->next;
@@ -177,6 +190,9 @@ int isPrintable ( int c )
 
    return 0 ;
 }
+
+
+
 
 void printmemory ()
 {

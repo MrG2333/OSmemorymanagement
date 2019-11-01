@@ -34,12 +34,11 @@ typedef struct segmentdescriptor {
 
 extern Segment_t * segmenttable;
 
-
 // forward references, user interface
 void        initialize () ;
 void      * mymalloc   ( size_t  ) ;
 void        myfree     ( void *  ) ;
-void        mydefrag   ( void * ) ;
+void        mydefrag   ( void **[] ) ;
 
 // forward references, managing segmentation table
 Segment_t * findFree    ( Segment_t *, size_t      ) ;
