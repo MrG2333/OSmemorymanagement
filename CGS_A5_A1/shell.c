@@ -72,6 +72,7 @@ int main(){
     printf("\n\nWill start defragmenting  the memory.\n Press ENTER key to continue.\n");
     getchar();
     ///create the ptrlist with the ptr that are still in memory
+    printf("\n\n ptr1 and ptr4 will be added to the ptrlst.\n Press ENTER key to continue.\n ");
     ptrlist[0] = &ptr1;
     ptrlist[1] = &ptr4;
 
@@ -87,7 +88,7 @@ int main(){
     getchar();
 
     ///check if memory is reused after defrag
-    printf("\n\n Allocated a pointer in order to demonstrate that the free, defragmented memory is reused. \nPress ENTER key to continue\n\n");
+    printf("\n\n Allocated a pointer in order to demonstrate that the free, defragmented memory is reused. \nPress ENTER key to continue.\n\n");
     getchar();
     char * ptr6 = (char *) mymalloc(101);
 
@@ -98,7 +99,11 @@ int main(){
 
     printmemory();
     printsegmenttable();
-	printf("ptr4:%s ",ptr4);
+
+    printf("\n\n Observe how  ptr4 after defragmentation, points to a new memory address instead of pointing to junk memory.\n Press ENTER key to continue.\n\n");
+
+	getchar();
+	printf("ptr4:%s ptr4_addres: %p",ptr4,ptr4);
     printf("\n============================\n\n END OF DEMONSTRATION \n\n============================\n ");
 
     printf("shell> end\n");

@@ -98,7 +98,7 @@ void mydefrag ( void ** ptrlist[])
         currentSegment->size = currentSegment->next->size;
         ptrListCounter = 0;
         while(ptrlist[ptrListCounter] != '\0')
-        {   printf("\n\n ptrlist: %s    currentSegment: %s\n\n", *ptrlist[ptrListCounter],currentSegment->next->start);
+        {
             if(*ptrlist[ptrListCounter] == currentSegment->next->start)
                 {
                     *ptrlist[ptrListCounter] = currentSegment->start;
@@ -110,7 +110,6 @@ void mydefrag ( void ** ptrlist[])
 
         ///check how you transfer data from one memory location to the other
         memcpy(currentSegment->start, currentSegment->next->start,currentSegment->next->size);
-         printf("\n\n ptrlist: %p    currentSegment: %p \n\n", *ptrlist[ptrListCounter-1],currentSegment->start);
 
         currentSegment->allocated = TRUE;
         currentSegment->next->allocated = FALSE;
