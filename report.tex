@@ -15,7 +15,7 @@
 \maketitle
 
 \section*{Compilation}
-In order to compile the code, open the terminal and go inside the assesment folder and type:
+In order to compile the code, open the terminal and go inside the assesment folder , then proceed to the desired grade demonstration and type:
 \noindent
 \begin{lstlisting}[language=bash]
 	$ make
@@ -32,11 +32,10 @@ In order to compile the code, open the terminal and go inside the assesment fold
 \subsection*{myfree()}
 \tab Looks for the pointer to free in the segmenttable linked list. And cheanges the status from allocated to deallocated.
 \subsection*{mydefrag()}
-\tab Looks trough the segmenttable linked list. For each pair of adjiacent segments if the first one is unallocated and the second one is they are swapped. If both are unallocated then they are compressed. This assures that all allocated memory segments are at the begining of the memory while all the free memory is in one segment.
+\tab Looks trough the segmenttable linked list. For each pair of adjiacent segments if the first one is unallocated and the second one is they are swapped. If both are unallocated then they are compressed. This assures that all allocated memory segments are at the begining of the memory while all the free memory is in one segment. The pointers given in the ptrlist will be modified so that they point to the right memory location.
 
 \subsection*{Running the demonstration}
-\tab The user is presented with information about what the program has done or what it is going to do. He can press any key in order to proceed to the next step of the demonstration. getchar() is used in the implementation of the next demonstration step mechanism.
-
+\tab The demonstration is only available for the A1-A5 grade.However it includes all the features for the lower grades. The user is presented with information about what the program has done or what it is going to do. The user then presses the ENTER key in order to proceed to the next step of the demonstration. getchar() is used in the implementation of the next demonstration step mechanism.
 
 
 \end{document}

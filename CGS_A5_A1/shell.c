@@ -38,7 +38,7 @@ int main(){
     printmemory();
     printsegmenttable();
 
-    printf("\n\nFree ptr2 of size 25, display segmenttable and reallocate the memory to a pointer of the same size to demonstrate the propper functioning of mymalloc.\n Press ENTER key to continue.\n\n");
+    printf("\n\nFree ptr2 of size 15, display segmenttable and reallocate the memory to a pointer of the same size to demonstrate the propper functioning of mymalloc.\n Press ENTER key to continue.\n\n");
     getchar();
 
     myfree(ptr2);
