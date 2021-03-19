@@ -1,4 +1,4 @@
-Compilation {#compilation .unnumbered}
+Compilation 
 ===========
 
 In order to compile the code, open the terminal and go inside the
@@ -10,7 +10,7 @@ type:
     $ ./memorymake
 ```
 
-Stage 3 {#stage-3 .unnumbered}
+Stage 3 
 =======
 
 After running the memorymake file from Stage 3 folder, the user will be
@@ -18,7 +18,7 @@ presented with a demonstration of all the funcionalities of the program.
 Allocating memory with mymalloc freeing it with myfree and defragmenting
 it with with mydefrag.
 
-mymalloc() {#mymalloc .unnumbered}
+mymalloc() 
 ----------
 
 If it finds a unallocated segment of the exact same size as the desired
@@ -27,13 +27,13 @@ unallocated segment bigger than the requested size. It splits the
 unallocated segment into a segment of the wanted size and segment of
 free memory.
 
-myfree() {#myfree .unnumbered}
+myfree() 
 --------
 
 Looks for the pointer to free in the segmenttable linked list. And
 cheanges the status from allocated to deallocated.
 
-mydefrag() {#mydefrag .unnumbered}
+mydefrag() 
 ----------
 
 Looks trough the segmenttable linked list. For each pair of adjiacent
@@ -44,7 +44,7 @@ while all the free memory is in one segment. The pointers given in the
 ptrlist will be modified so that they point to the right memory
 location.
 
-Running the demonstration {#running-the-demonstration .unnumbered}
+Running the demonstration 
 -------------------------
 
 The demonstration is only available for Stage 3.However it
