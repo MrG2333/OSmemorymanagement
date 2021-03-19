@@ -1,33 +1,40 @@
+/**
+ *  Example file. To test the functionality run this file.
+ * 
+ * 
+ * */
+
 #include <stdio.h>
 #include <string.h>
 #include "mymemory.h"
 
-
-int main(){
+int main()
+{
     printf("shell> start\n");
     printf("\n============================\n\n START OF DEMONSTRATION \n\n============================\n ");
     initialize();
 
-    void ** ptrlist[MAXSEGMENTS];
-    for(int i= 0 ; i<MAXSEGMENTS;i++) ptrlist[i]='\0';
+    void **ptrlist[MAXSEGMENTS];
+    for (int i = 0; i < MAXSEGMENTS; i++)
+        ptrlist[i] = '\0';
 
     printf("Will allocate memory for 5 pointers.\n Press ENTER character to continue");
     getchar();
 
-    char * ptr1 = (char *) mymalloc(15);
+    char *ptr1 = (char *)mymalloc(15);
     strcpy(ptr1, "memory_data_1");
 
-    char * ptr2 = (char *) mymalloc(15);
+    char *ptr2 = (char *)mymalloc(15);
     strcpy(ptr2, "memory_data_2");
 
-    char * ptr3 = (char *) mymalloc(15);
+    char *ptr3 = (char *)mymalloc(15);
 
     strcpy(ptr3, "memory_data_3");
 
-    char * ptr4 = (char *) mymalloc(15);
+    char *ptr4 = (char *)mymalloc(15);
     strcpy(ptr4, "memory_data_4");
 
-    char * ptr5 = (char *) mymalloc(15);
+    char *ptr5 = (char *)mymalloc(15);
     strcpy(ptr5, "memory_data_5");
 
     printf("\n\nAllocated memory for 5 pointers.\n\n");
@@ -47,16 +54,14 @@ int main(){
     printf("\n\n run mymalloc for the same size as the freed pointer.\n Press ENTER key to continue.\n\n");
     getchar();
 
-    char * ptr10 = NULL;
+    char *ptr10 = NULL;
     ptr10 = (char *)mymalloc(15);
 
-    strcpy(ptr10,"12345678901234");
+    strcpy(ptr10, "12345678901234");
 
     printsegmenttable();
     printf("\n\n Observe how mymalloc can reuse memory segments of the same size.\n Press ENTER key to continue.\n\n");
     getchar();
-
-
 
     printf("\n All pointers with the exception of 2 not adjiacent ones will be freed in order to demonstrate the defragmentation and free space segment compresion. \nPress ENTER character to continue");
     getchar();
@@ -78,19 +83,18 @@ int main(){
 
     mydefrag(ptrlist);
 
-
     printf("\n\nDefragmented the memory. Will display the memory and the segmenttable.\nPress ENTER key to continue.\n\n");
     getchar();
     printmemory();
     printsegmenttable();
 
-	printf("\n\n Observe how the data has been moved in the memory.\nPress ENTER key to continue.\n\n");
+    printf("\n\n Observe how the data has been moved in the memory.\nPress ENTER key to continue.\n\n");
     getchar();
 
     ///check if memory is reused after defrag
     printf("\n\n Allocated a pointer in order to demonstrate that the free, defragmented memory is reused. \nPress ENTER key to continue.\n\n");
     getchar();
-    char * ptr6 = (char *) mymalloc(101);
+    char *ptr6 = (char *)mymalloc(101);
 
     strcpy(ptr6, "__REUSED___REUSED_____REUSED___REUSED_____REUSED___REUSED_____REUSED___REUSED_____REUSED___REUSED___");
 
@@ -102,10 +106,10 @@ int main(){
 
     printf("\n\n Observe how  ptr4 after defragmentation, points to a new memory address instead of pointing to junk memory.\n Press ENTER key to continue.\n\n");
 
-	getchar();
-	printf("ptr4:%s ptr4_addres: %p",ptr4,ptr4);
+    getchar();
+    printf("ptr4:%s ptr4_addres: %p", ptr4, ptr4);
     printf("\n============================\n\n END OF DEMONSTRATION \n\n============================\n ");
 
     printf("shell> end\n");
-return 0;
+    return 0;
 }
